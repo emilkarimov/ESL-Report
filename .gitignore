@@ -1,0 +1,9 @@
+*.log
+*.toc
+*.pdf
+*.maf
+*.mtc0
+*.synctex.gz
+*.aux
+*.mtc
+*.out
