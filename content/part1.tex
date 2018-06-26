@@ -64,6 +64,7 @@ This relative encoder is using two disk to know the sens of rotation. this two d
 As we see, the main criterion is real-time then accuracy then implementation and flexibility.
 
 \begin{figure}[!ht]
+\hspace{-1cm}
 \begin{tabular}{|c|c|c|c|c|c|c|}\hline
                          & Accuracy  & Implementation & Flexibility & Real-time & Ressources & result \\\hline
 coefficient   &         2          &           1                      &         1           &           3         &           1            &              \\\hline
@@ -78,6 +79,7 @@ Proc               &      ++         &              ++                &         
 PWM are used for controlling motors. The principle is to send in one way the direction of the motor and in the other way, the speed rotation. The direction is send by to logical wire that can respectivelly be set to high or low. The speed is controlled by a square periodic signal with fixe period and variable duty cycle. The speed is proportionnal to the average voltage and so to the duty cycle. Because we dont have any time specification for our system, hard real-time is not necessary but usefull in order to avoid delay. Similarly, this unit is quiet easy and shouldn't need many corrections. 
 
 \begin{figure}[!ht]
+\hspace{-1cm}
 \begin{tabular}{|c|c|c|c|c|c|c|}\hline
                          & Accuracy  & Implementation & Flexibility & Real-time & Ressources & result \\\hline
 coefficient   &         2          &           1                      &         1           &           2         &         1               &             \\\hline
@@ -88,3 +90,35 @@ Proc               &      -             &              ++               &       
 \end{figure}
 
 \subsection{Image processing unit}
+
+This module is in charge to capture pictures from the camera and analyze each of them in order to detect a shape and return his position in the picture. This unit has a lot to process and have to use a driver to get data from the camera. As for PWM, because our system is not hard real-time, we still not have to much constraint about the time of the process. Furthermore, it's almost a proof of concept so that we don't need  such a good precision for our detection and we cannot really guess the final precision before implementing it. Nevertheless, we should have to configure a lot this units.
+
+\begin{figure}[!ht]
+\hspace{-1cm}
+\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+                         & Accuracy  & Implementation & Flexibility & Real-time & Ressources & result \\\hline
+coefficient   &         1          &           3                      &         4           &           1         &         2               &             \\\hline
+FPGA            &      n.a.        &            --                   &         --          &        n.a.       &         -              &      -16  \\\hline
+Proc               &      n.a.         &            +                   &         ++        &         n.a.      &          ++          &       15    \\\hline
+\end{tabular}
+\caption{trade-off table of processing unit}
+\end{figure}
+
+\subsection{Control unit}
+
+This unit is in charge to get feedback and correct send right position to the camera. This is the part that close the loop of the system. There is a lot of controller more or less complex and more or less accurate. Because of the system we want to control is quiet simple, we can simply implement an proportionnal controller with a gain that we should be able to choose. In this case, the unit remain simple and by varying the gain, we should be able to control the system even if there is delay.
+
+\begin{figure}[!ht]
+\hspace{-1cm}
+\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+                         & Accuracy  & Implementation & Flexibility & Real-time & Ressources & result \\\hline
+coefficient   &         2          &           1                      &         1           &           1         &         1               &             \\\hline
+FPGA            &      +            &            +                     &         +          &          +         &         +              &   5     \\\hline
+Proc               &      ++          &          ++                   &         ++       &         -           &         +              &       6    \\\hline
+\end{tabular}
+\caption{trade-off table of control unit}
+\end{figure}
+
+\subsection{Communication}
+
+An other parameter to keep in mind is communication between units. Indeed, depending of wich hardware we use and where we implement each unit, communication could be easier or more difficult. Communication from FPGA to FPGA is easy as is communication from an algorithm to an other. The difficulty is to communicate between processor and FPGA. According to our system, the only unit that communicate with the other is the control unit. 

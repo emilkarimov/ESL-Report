@@ -1,0 +1,8 @@
+\section{Image processing}
+
+There is several way for embedded image processing on linux board. The first one studied in assignment 7 and 8 is gstreamer librairies. This librairies allow us to build a so called pipeline that take picture from camera and is able to expose each sample for processing or save them. There is no direct image processing functions and we have to create our own or link to an other librairie. An alternative to gstreamer is ffmpeg. Ffmpeg also allows us to build pipeline for capturing video from a webcam. Ffmpeg has more filter and functions than gstreamer but don't have an as good API for extending it. There is a third solution which is opencv. Opencv is the reference in term of open-source image processing. It can be link to both gstreamer and ffmpeg and even work alone. Because it's processing oriented, it will have less options for capturing data.
+
+\subsection{Gstreamer try}
+
+Because of assignment 7 and 8 ask to build a processing chain with gstreamer, wer first tried to use it for image processing. The idea was that we already have a working chain and image detection didn't need to be so accurate so we should be able to create our own detecting algorithm and get satisfying results.
+
