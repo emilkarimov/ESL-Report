@@ -1,12 +1,15 @@
 \documentclass{article}
 
+\usepackage{nameref}
+\usepackage{titlesec}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage[pdftex]{graphicx}
+\usepackage[parfill]{parskip}
 
-\title{ESL-Report}
-\author{e.kerimov t.ollive }
-\date{June 2018}
+\title{Report\\ for\\ Embedded Systems Laboratory\\ Vision-in-the-loop System}
+\author{E. Kerimov T. Ollive }
+\date{29 June 2018\\}
 
 % use image directory by defaultgo
 \graphicspath{ {images/} }
@@ -15,9 +18,13 @@
 \begin{document}
 
 \maketitle
+\thispagestyle{empty}
+\newpage
+\tableofcontents
 
-\input{content/introduction.tex}
+\input{content/introduction}
 \input{content/part1.tex} 
 \input{content/image_processing.tex} 
-\input{content/controller.tex} 
+\input{content/controller.tex}
+\input{content/fpga.tex}
 \end{document}
